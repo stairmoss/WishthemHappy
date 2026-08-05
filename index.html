@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WishThemHappy — Create Premium Minimalist Birthday Wishes</title>
+    <meta name="description" content="Send beautiful, minimalist birthday wishing web experiences featuring premium designs, audio themes, and custom memory polaroids." />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Cinzel+Decorative:wght@700&family=Inter:wght@300;400;500;600;700&family=Macondo&family=Playfair+Display:ital,wght@0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Satisfy&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+              handwriting: ['Caveat', 'Satisfy', 'cursive'],
+              serif: ['"Playfair Display"', 'serif'],
+              title: ['Macondo', '"Cinzel Decorative"', 'cursive', 'serif'],
+            },
+            colors: {
+              brandBg: '#FFF5F7',
+              brandSecondary: '#FFD1DC',
+              brandPrimary: '#FF6B8B',
+              brandText: '#4A2E35',
+              slate: {
+                50: '#FFF9FA',
+                100: '#FFF5F7',
+                200: '#FFD1DC',
+                300: '#FFAEC1',
+                400: '#FF8DA6',
+                500: '#FF6B8B',
+                600: '#E05372',
+                700: '#8A5360',
+                800: '#613E47',
+                900: '#4A2E35',
+                950: '#2E181D',
+              },
+              pink: {
+                50: '#FFF5F7',
+                100: '#FFF5F7',
+                200: '#FFD1DC',
+                300: '#FFAEC1',
+                400: '#FF8DA6',
+                500: '#FF6B8B',
+                600: '#FF6B8B',
+                700: '#4A2E35',
+                800: '#4A2E35',
+                900: '#4A2E35',
+              }
+            }
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
