@@ -1,0 +1,486 @@
+/* Aurora Global CSS & Theme Token Architecture */
+
+:root {
+  /* Default Palette: Soft Pink, Pastel Blush Pink & Vibrant Rose */
+  --bg-primary: #FFF5F7; /* Very Light Soft Pink */
+  --bg-secondary: #FFD1DC; /* Pastel Blush Pink */
+  --surface-card: #FFFFFF;
+  --surface-overlay: rgba(255, 245, 247, 0.85);
+  --text-headline: #4A2E35; /* Deep Plum / Dark Burgundy */
+  --text-body: #5C3D45; /* Softened Burgundy */
+  --text-muted: #7E636B;
+  --accent-primary: #FF6B8B; /* Vibrant Rose */
+  --accent-gold: #FF6B8B; /* Vibrant Rose Accent */
+  --accent-secondary: #FFD1DC; /* Pastel Blush Pink */
+  --border-color: rgba(255, 107, 139, 0.25);
+  --border-radius-card: 24px;
+  --shadow-card: 0 16px 36px rgba(74, 46, 53, 0.05);
+
+  /* Fonts */
+  --font-title:  'Cinzel Decorative', cursive, serif;
+  --font-body: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  --font-heading: 'Playfair Display', serif;
+  --font-handwriting: 'Caveat', 'Satisfy', cursive;
+
+  /* Transitions & Spacing */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
+  --section-spacing: 140px;
+}
+
+/* Theme 2: Cosmic Starlight */
+:root[data-theme="COSMIC_STARLIGHT"] {
+  --bg-primary: #0B0E14;
+  --bg-secondary: #141923;
+  --surface-card: rgba(26, 32, 44, 0.85);
+  --surface-overlay: rgba(15, 23, 42, 0.8);
+  --text-headline: #F3F4F6;
+  --text-body: #CBD5E1;
+  --text-muted: #94A3B8;
+  --accent-primary: #818CF8;
+  --accent-gold: #F59E0B;
+  --accent-secondary: #38BDF8;
+  --border-color: rgba(245, 158, 11, 0.25);
+  --border-radius-card: 24px;
+  --shadow-card: 0 16px 40px rgba(0, 0, 0, 0.6);
+
+  --font-title: 'Cinzel Decorative', serif;
+  --font-heading: 'Playfair Display', serif;
+}
+
+/* Theme 3: Vintage Sepia */
+:root[data-theme="VINTAGE_SEPIA"] {
+  --bg-primary: #EFE6D5;
+  --bg-secondary: #E3D4BC;
+  --surface-card: #FAF6ED;
+  --surface-overlay: rgba(250, 246, 237, 0.85);
+  --text-headline: #2B231A;
+  --text-body: #4A3E31;
+  --text-muted: #7A6B58;
+  --accent-primary: #A64B2A;
+  --accent-gold: #C68B59;
+  --accent-secondary: #6B7AA1;
+  --border-color: #C2B095;
+  --border-radius-card: 12px;
+  --shadow-card: 0 10px 24px rgba(43, 35, 26, 0.12);
+
+  --font-title: 'Caveat', cursive;
+  --font-heading: 'Playfair Display', serif;
+}
+
+/* Theme 4: Cyber Neon (Spotify Wrapped style) */
+:root[data-theme="CYBER_NEON"] {
+  --bg-primary: #121212;
+  --bg-secondary: #1E1E1E;
+  --surface-card: #282828;
+  --surface-overlay: rgba(40, 40, 40, 0.9);
+  --text-headline: #1DB954;
+  --text-body: #FFFFFF;
+  --text-muted: #B3B3B3;
+  --accent-primary: #FF007A;
+  --accent-gold: #00F0FF;
+  --accent-secondary: #1DB954;
+  --border-color: #333333;
+  --border-radius-card: 16px;
+  --shadow-card: 0 14px 36px rgba(0, 0, 0, 0.5);
+
+  --font-title: 'Plus Jakarta Sans', sans-serif;
+  --font-heading: 'Inter', sans-serif;
+}
+
+/* Theme 5: Lavender, Mint & Lemon Chiffon */
+:root[data-theme="LAVENDER_MINT"] {
+  --bg-primary: #F5F3FF; /* Soft lavender */
+  --bg-secondary: #ECFDF5; /* Soft mint */
+  --surface-card: #FFFDF0; /* Lemon Chiffon */
+  --surface-overlay: rgba(255, 255, 255, 0.85);
+  --text-headline: #4C1D95; /* Deep violet */
+  --text-body: #065F46; /* Deep emerald/mint */
+  --text-muted: #7C3AED;
+  --accent-primary: #D8B4FE; /* Lavender */
+  --accent-gold: #FEF08A; /* Lemon Chiffon */
+  --accent-secondary: #A7F3D0; /* Mint */
+  --border-color: rgba(167, 243, 208, 0.4);
+  --border-radius-card: 24px;
+  --shadow-card: 0 16px 36px rgba(76, 29, 149, 0.05);
+
+  --font-title: 'Macondo', cursive;
+  --font-heading: 'Playfair Display', serif;
+}
+
+/* Reset & Base Setup */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background-color 0.6s var(--ease-out-expo), color 0.6s var(--ease-out-expo);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-headline);
+  font-family: var(--font-title);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  touch-action: manipulation;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent-gold);
+  border-radius: 4px;
+}
+
+/* --- Grand Birthday Surprise Template Styles --- */
+.envelope-container {
+  text-align: center;
+  cursor: pointer;
+  perspective: 1000px;
+}
+
+.envelope {
+  position: relative;
+  width: 320px;
+  height: 200px;
+  margin: 0 auto;
+  transform-style: preserve-3d;
+}
+
+.envelope-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #f7f3e9;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.envelope-flap {
+  position: absolute;
+  width: 100%;
+  height: 100px;
+  background-color: #e0d9cc;
+  top: 0;
+  left: 0;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 5;
+}
+
+.envelope-front {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #f7f3e9;
+  top: 0;
+  left: 0;
+  clip-path: polygon(0 100%, 100% 100%, 100% 50%, 50% 100%, 0 50%);
+  z-index: 3;
+}
+
+.envelope-seal {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  background-color: #e94560;
+  border-radius: 50%;
+  top: 78px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 4px 10px rgba(233, 69, 96, 0.4);
+}
+
+.envelope-container.open .envelope-flap {
+  transform: rotateX(180deg);
+}
+
+/* Balloons Rise Animation */
+@keyframes balloonRise {
+  0% { transform: translateY(0) scale(0.8); opacity: 0; }
+  5% { opacity: 0.8; transform: translateY(0) scale(1); }
+  100% { transform: translateY(-120vh) scale(1.1); opacity: 0; }
+}
+
+.animate-balloon-rise {
+  animation: balloonRise 12s linear forwards;
+}
+
+/* Fireworks Launch & Explode Animation */
+@keyframes fireworkLaunch {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  70% { transform: translateY(-60vh) translateX(40px); opacity: 1; }
+  100% { transform: translateY(-70vh) translateX(50px); opacity: 0; }
+}
+
+.animate-firework-launch {
+  animation: fireworkLaunch 4s ease-out forwards;
+}
+
+/* Flame Flicker Animation */
+@keyframes flameFlicker {
+  0%, 100% { transform: scaleY(1) rotate(0deg); opacity: 1; }
+  25% { transform: scaleY(0.9) rotate(3deg); opacity: 0.9; }
+  50% { transform: scaleY(1.15) rotate(-3deg); opacity: 1; }
+  75% { transform: scaleY(0.95) rotate(1.5deg); opacity: 0.95; }
+}
+
+/* CSS Flash Shimmer Loader for imagesloaded */
+@keyframes flashShimmer {
+  0% {
+    background-position: -200% 0;
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    background-position: 200% 0;
+    opacity: 0.7;
+  }
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatUp {
+  0%   { transform: translateY(0) scale(1);   opacity: 0.3; }
+  50%  { opacity: 0.5; }
+  100% { transform: translateY(-120px) scale(0.6); opacity: 0; }
+}
+
+.img-flash-loader {
+  background: linear-gradient(90deg, #f1f5f9 25%, #cbd5e1 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: flashShimmer 1.4s infinite ease-in-out;
+}
+
+/* Common Utility Classes */
+.container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.title-script {
+  font-family: var(--font-title);
+}
+
+.text-handwriting {
+  font-family: var(--font-handwriting);
+}
+
+.glass-panel {
+  background: var(--surface-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+/* Polaroid Card Styling */
+.polaroid-frame {
+  background: #FFFFFF;
+  padding: 10px 10px 16px 10px;
+  border-radius: 6px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12), 0 3px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.polaroid-frame:hover {
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.25);
+  z-index: 20;
+}
+
+.polaroid-frame::after {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 85px;
+  height: 26px;
+  background: rgba(255, 238, 204, 0.9);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  border: 1px dashed rgba(200, 160, 100, 0.6);
+  pointer-events: none;
+}
+
+/* Scrapbook Template Refined Styles */
+.postage-stamp-frame {
+  background: #FFFFFF;
+  padding: 14px 14px 38px 14px;
+  position: relative;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  border: 10px solid #FFFFFF;
+  outline: 2px dashed var(--accent-gold);
+  border-radius: 2px;
+  transition: transform 0.3s ease;
+}
+.postage-stamp-frame:hover {
+  transform: scale(1.03) rotate(-1deg);
+}
+
+.torn-paper-card {
+  background: #FDFBF7;
+  padding: 28px;
+  border-radius: 4px;
+  position: relative;
+  box-shadow: 0 12px 32px rgba(62, 39, 35, 0.08);
+  border-left: 6px solid var(--accent-primary);
+  background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 0);
+  background-size: 16px 16px;
+}
+
+.ribbon-banner {
+  display: inline-block;
+  padding: 6px 20px;
+  background: var(--accent-primary);
+  color: #FFFFFF;
+  font-family: var(--font-handwriting);
+  font-size: 1.25rem;
+  font-weight: 700;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  letter-spacing: 0.05em;
+}
+
+.postmark-stamp {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px dashed var(--accent-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-gold);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transform: rotate(-12deg);
+  opacity: 0.85;
+}
+
+/* Journal Template Refined Styles (From Reference Images) */
+.filigree-journal-card {
+  background: #FAF6EE;
+  padding: 40px 32px;
+  border: 10px double #3E2723;
+  outline: 2px solid var(--accent-gold);
+  border-radius: 4px;
+  box-shadow: 0 16px 36px rgba(62, 39, 35, 0.12);
+  position: relative;
+}
+
+.scorched-journal-card {
+  background: #F8F3E6;
+  padding: 32px;
+  border-radius: 4px;
+  position: relative;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.15);
+  border-bottom: 6px solid #8B4513;
+  background-image: repeating-linear-gradient(transparent, transparent 31px, rgba(141, 110, 99, 0.2) 31px, rgba(141, 110, 99, 0.2) 32px);
+}
+
+.wax-seal-badge {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8B0000 0%, #4A0000 100%);
+  color: #D4A373;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+  border: 2px solid #D4A373;
+  font-family: var(--font-title);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.dot-grid-card {
+  background: #FFFFFF;
+  background-image: radial-gradient(#C4A482 1px, transparent 0);
+  background-size: 18px 18px;
+  padding: 28px;
+  border-radius: 8px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.06);
+  border: 1px solid rgba(196, 164, 130, 0.4);
+}
+
+/* Badge pill */
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 50px;
+  background: rgba(212, 163, 115, 0.15);
+  border: 1px solid var(--accent-gold);
+  color: var(--text-headline);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+/* Mobile & Web Responsive Device Layout Rules */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  .polaroid-frame {
+    padding: 12px 12px 36px 12px;
+  }
+
+  button {
+    min-height: 44px;
+  }
+}
