@@ -78,11 +78,11 @@ export function FlipbookStory({
   }
 
   // Shift book container dynamically to center the visible pages
-  let bookShift = 'translateX(80px)';
+  let bookShift = 'translateX(0px)';
   if (flippedCount === flippedSheets.length) {
-    bookShift = 'translateX(-80px)';
+    bookShift = 'translateX(320px)';
   } else if (flippedCount > 0) {
-    bookShift = 'translateX(0px)';
+    bookShift = 'translateX(160px)';
   }
 
   // Handle list of photos with backward compatibility fallbacks

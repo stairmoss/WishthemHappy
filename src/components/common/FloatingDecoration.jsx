@@ -98,7 +98,7 @@ export function FloatingDecoration({
         bottom,
         pointerEvents: 'none',
         zIndex: 5,
-        transform: `rotate(${rotate}deg)`
+        rotate: rotate
       }}
     >
       {assetUrl ? (

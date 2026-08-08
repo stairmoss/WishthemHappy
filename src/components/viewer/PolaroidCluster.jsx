@@ -64,8 +64,8 @@ export function PolaroidCluster({ photos = [] }) {
   return (
     <div className="w-full py-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-center justify-center">
-        {displayPhotos.map((phsoto, index) => {
-          const rot = rotation[index % rotations.length];
+        {displayPhotos.map((photo, index) => {
+          const rot = rotations[index % rotations.length];
           return (
             <motion.div
               key={index}
@@ -73,7 +73,7 @@ export function PolaroidCluster({ photos = [] }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.4 }}
-              style={{ transform: `rotate(${rot}deg)` }}
+              style={{ rotate: rot }}
               className="relative group max-w-[260px] mx-auto w-full"
             >
               {/* Decorative Sticker Overlay */}
