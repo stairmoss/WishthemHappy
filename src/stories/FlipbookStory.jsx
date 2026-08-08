@@ -187,16 +187,6 @@ export function FlipbookStory({
         </div>
 
         <div className="flex items-center gap-3">
-          <button
-            onClick={toggleMusic}
-            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-extrabold transition-transform hover:scale-105 ${
-              isPlayingMusic ? 'bg-rose-500 text-white animate-pulse' : 'bg-amber-800 text-amber-200 hover:bg-amber-700'
-            }`}
-          >
-            <Music className="w-3.5 h-3.5" />
-            <span>{isPlayingMusic ? 'Music Playing' : 'Play Music'}</span>
-          </button>
-
           <div className="flex items-center gap-1">
             <button
               onClick={handlePrevPage}
@@ -330,18 +320,40 @@ export function FlipbookStory({
 
                 {/* Cake Display */}
                 <div className="my-2 cursor-pointer group" onClick={(e) => { e.stopPropagation(); handleBlowOut(); }}>
-                  <div className="w-40 h-28 mx-auto relative flex flex-col items-center justify-end">
-                    <div className="w-36 h-8 bg-amber-900 rounded-b-lg border-t-2 border-amber-700" />
-                    <div className="w-30 h-8 bg-amber-800 border-t-2 border-amber-600" />
-                    <div className="w-24 h-8 bg-pink-500 rounded-t-lg border-t-2 border-pink-300 flex justify-around">
-                      <div className="w-2 h-4 bg-white rounded-b-full" />
-                      <div className="w-2 h-5 bg-white rounded-b-full" />
+                  <div className="w-44 h-32 mx-auto relative flex flex-col items-center justify-end">
+                    {/* Candle on top */}
+                    <div className="absolute top-0 flex flex-col items-center z-10" style={{ transform: 'translateY(-100%)' }}>
+                      {!candlesBlown && (
+                        <div className="w-4 h-5 bg-gradient-to-t from-amber-50 to-yellow-300 rounded-full animate-pulse shadow-[0_0_12px_#f59e0b]" />
+                      )}
+                      <div className="w-1.5 h-6 bg-gradient-to-b from-rose-400 to-rose-600 rounded-t-sm" />
                     </div>
 
-                    <div className="absolute -top-5 w-2.5 h-8 bg-rose-500 rounded-t-sm">
-                      {!candlesBlown && (
-                        <div className="absolute -top-3 -left-1 w-4 h-4 rounded-full bg-amber-400 animate-pulse shadow-[0_0_10px_#fbbf24]" />
-                      )}
+                    {/* Top Tier (Strawberry / Pink) */}
+                    <div className="w-20 h-7 bg-rose-400 rounded-t-md border-b-2 border-rose-300 relative flex justify-around items-end">
+                      {/* Cream drips */}
+                      <div className="absolute top-0 left-0 right-0 h-2 bg-pink-100 rounded-t-md" />
+                      <div className="w-1.5 h-3 bg-pink-100 rounded-b-full" />
+                      <div className="w-1.5 h-4.5 bg-pink-100 rounded-b-full" />
+                      <div className="w-1.5 h-3 bg-pink-100 rounded-b-full" />
+                    </div>
+
+                    {/* Middle Tier (Vanilla / Cream) */}
+                    <div className="w-32 h-8 bg-amber-200 border-b-2 border-amber-300 relative flex justify-around items-end">
+                      {/* Frosting drips */}
+                      <div className="absolute top-0 left-0 right-0 h-2 bg-amber-50" />
+                      <div className="w-2 h-4 bg-amber-50 rounded-b-full" />
+                      <div className="w-2 h-5 bg-amber-50 rounded-b-full" />
+                      <div className="w-2 h-3.5 bg-amber-50 rounded-b-full" />
+                    </div>
+
+                    {/* Base Tier (Chocolate / Dark Amber) */}
+                    <div className="w-40 h-9 bg-amber-900 rounded-b-md relative flex justify-around items-end shadow-md">
+                      {/* Chocolate drips */}
+                      <div className="absolute top-0 left-0 right-0 h-2.5 bg-amber-950" />
+                      <div className="w-2.5 h-4.5 bg-amber-950 rounded-b-full" />
+                      <div className="w-2.5 h-5 bg-amber-950 rounded-b-full" />
+                      <div className="w-2.5 h-3.5 bg-amber-950 rounded-b-full" />
                     </div>
                   </div>
 

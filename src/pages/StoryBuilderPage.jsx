@@ -78,8 +78,8 @@ export function StoryBuilderPage({ onNavigate }) {
       const img = new Image();
       img.onload = () => {
         const canvas = document.createElement('canvas');
-        const MAX_WIDTH = 80;
-        const MAX_HEIGHT = 80;
+        const MAX_WIDTH = 300;
+        const MAX_HEIGHT = 300;
         let width = img.width;
         let height = img.height;
 
@@ -100,7 +100,7 @@ export function StoryBuilderPage({ onNavigate }) {
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, width, height);
 
-        const dataUrl = canvas.toDataURL('image/jpeg', 0.45);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.65);
         setFormData(prev => {
           const currentPhotos = prev.polaroidPhotos || [];
           const currentCaptions = prev.polaroidCaptions || [];
