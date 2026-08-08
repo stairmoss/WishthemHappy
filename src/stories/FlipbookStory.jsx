@@ -77,12 +77,12 @@ export function FlipbookStory({
     pageDisplay = "Back Cover";
   }
 
-  // Shift book container dynamically to center the visible pages
-  let bookShift = 'translateX(0px)';
+  // Calculate shift factor dynamically to center the visible pages
+  let shiftFactor = 0;
   if (flippedCount === flippedSheets.length) {
-    bookShift = 'translateX(320px)';
+    shiftFactor = 1;
   } else if (flippedCount > 0) {
-    bookShift = 'translateX(160px)';
+    shiftFactor = 0.5;
   }
 
   // Handle list of photos with backward compatibility fallbacks
@@ -102,22 +102,61 @@ export function FlipbookStory({
   return (
     <div className="flex flex-col items-center py-6 px-2 w-full max-w-5xl mx-auto">
       <style>{`
+        :root {
+          --book-width: 380px;
+          --book-height: 520px;
+          --viewport-height: 580px;
+          --text-scale: 1;
+        }
+        @media (max-width: 768px) {
+          :root {
+            --book-width: 320px;
+            --book-height: 460px;
+            --viewport-height: 520px;
+            --text-scale: 0.92;
+          }
+        }
+        @media (max-width: 640px) {
+          :root {
+            --book-width: 290px;
+            --book-height: 420px;
+            --viewport-height: 480px;
+            --text-scale: 0.85;
+          }
+        }
+        @media (max-width: 480px) {
+          :root {
+            --book-width: 245px;
+            --book-height: 370px;
+            --viewport-height: 430px;
+            --text-scale: 0.75;
+          }
+        }
+        @media (max-width: 380px) {
+          :root {
+            --book-width: 215px;
+            --book-height: 330px;
+            --viewport-height: 390px;
+            --text-scale: 0.65;
+          }
+        }
+
         .book-viewport {
           perspective: 1500px;
           display: flex;
           justify-content: center;
           align-items: center;
           width: 100%;
-          height: 520px;
+          height: var(--viewport-height);
           margin: 0 auto;
         }
         .book-container-3d {
           position: relative;
-          width: 320px;
-          height: 460px;
+          width: var(--book-width);
+          height: var(--book-height);
           transform-style: preserve-3d;
           transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-          transform: scale(var(--book-scale)) var(--book-shift);
+          transform: translateX(calc(var(--book-width) * var(--book-shift-factor)));
         }
         .book-sheet-3d {
           position: absolute;
@@ -141,6 +180,9 @@ export function FlipbookStory({
           box-sizing: border-box;
           overflow: hidden;
           border: 1px solid rgba(217, 119, 6, 0.15);
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          transform: translate3d(0, 0, 0);
         }
         .book-page-front-3d {
           z-index: 2;
@@ -151,29 +193,57 @@ export function FlipbookStory({
           transform: rotateY(180deg);
           background: linear-gradient(to left, #fdfbf7 94%, #eae5d3 100%);
         }
+        .book-cover-page {
+          background: linear-gradient(135deg, #fdf2f8 0%, #f3e8ff 50%, #e0e7ff 100%) !important;
+          border: 4px solid #c084fc !important;
+          color: #3b0764 !important;
+        }
+
+        /* Responsive text & content scaling inside the book */
+        .book-container-3d h1 {
+          font-size: calc(1.875rem * var(--text-scale)) !important;
+          line-height: 1.25 !important;
+        }
+        .book-container-3d h2 {
+          font-size: calc(1.35rem * var(--text-scale)) !important;
+          line-height: 1.25 !important;
+        }
+        .book-container-3d p {
+          font-size: calc(0.875rem * var(--text-scale)) !important;
+          line-height: 1.5 !important;
+        }
+        .book-container-3d .text-xs {
+          font-size: calc(0.75rem * var(--text-scale)) !important;
+        }
+        .book-container-3d .text-\[10px\] {
+          font-size: calc(10px * var(--text-scale)) !important;
+        }
+        .book-container-3d .text-\[11px\] {
+          font-size: calc(11px * var(--text-scale)) !important;
+        }
+        .book-container-3d .font-handwriting {
+          font-size: calc(1.5rem * var(--text-scale)) !important;
+        }
         
-        :root {
-          --book-scale: 1.1;
+        /* Auto scale mascot & cake container on small viewports */
+        .book-container-3d .mascot-container {
+          transform: scale(var(--text-scale));
+          transform-origin: center center;
         }
-        @media (max-width: 768px) {
-          :root {
-            --book-scale: 0.9;
-          }
+        .book-container-3d .cake-container {
+          transform: scale(var(--text-scale));
+          transform-origin: bottom center;
         }
-        @media (max-width: 640px) {
-          :root {
-            --book-scale: 0.72;
-          }
+        
+        /* Responsive polaroid frame scaling */
+        .polaroid-frame.w-\[160px\] {
+          width: calc(var(--book-width) * 0.45) !important;
         }
-        @media (max-width: 480px) {
-          :root {
-            --book-scale: 0.56;
-          }
+        .polaroid-frame.w-\[95px\] {
+          width: calc(var(--book-width) * 0.29) !important;
         }
-        @media (max-width: 380px) {
-          :root {
-            --book-scale: 0.48;
-          }
+        .polaroid-frame.w-\[75px\] {
+          width: calc(var(--book-width) * 0.23) !important;
         }
       `}</style>
 
@@ -213,8 +283,7 @@ export function FlipbookStory({
         <div 
           className="book-container-3d"
           style={{ 
-            '--book-shift': bookShift,
-            transform: 'scale(var(--book-scale)) var(--book-shift)'
+            '--book-shift-factor': shiftFactor
           }}
         >
           
@@ -228,32 +297,32 @@ export function FlipbookStory({
           >
             {/* Front: Page 0 (Cover) */}
             <div 
-              className="book-page-face-3d book-page-front-3d cursor-pointer select-none bg-gradient-to-br from-amber-900 via-amber-800 to-rose-950 text-amber-100 border-4 border-amber-500/40 p-1"
+              className="book-page-face-3d book-page-front-3d book-cover-page cursor-pointer select-none p-1"
               onClick={handleNextPage}
             >
-              <div className="h-full flex flex-col items-center justify-between p-4 border-2 border-dashed border-amber-400/30 rounded-xl">
+              <div className="h-full flex flex-col items-center justify-between p-4 border-2 border-dashed border-purple-400/30 rounded-xl">
                 <div>
-                  <span className="px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 text-[10px] font-black uppercase tracking-widest border border-amber-400/40">
+                  <span className="px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-[10px] font-black uppercase tracking-widest border border-purple-300">
                     Edition 2026 • Hard Cover
                   </span>
-                  <h1 className="font-serif text-3xl font-extrabold text-amber-200 mt-4 leading-tight">
+                  <h1 className="font-serif text-3xl font-extrabold text-purple-900 mt-4 leading-tight">
                     A Grand Birthday Story
                   </h1>
-                  <p className="text-xs font-serif text-amber-300/80 italic mt-1">
+                  <p className="text-xs font-serif text-purple-700/80 italic mt-1">
                     Dedicated to {recipientName}
                   </p>
                 </div>
 
-                <div className="my-2">
+                <div className="my-2 mascot-container">
                   <SpriteMascot action="wave" size={120} showSpeech={true} speechText="Open the book!" />
                 </div>
 
                 <div className="w-full">
-                  <div className="p-3 bg-amber-950/60 rounded-xl border border-amber-600/30">
-                    <p className="font-handwriting text-2xl text-amber-300">
+                  <div className="p-3 bg-white/80 rounded-xl border border-purple-200">
+                    <p className="font-handwriting text-2xl text-purple-800">
                       Happy Birthday, {recipientName}!
                     </p>
-                    <p className="text-[10px] text-amber-400/70 font-semibold mt-1">
+                    <p className="text-[10px] text-purple-600/70 font-semibold mt-1">
                       Flip page to read your story →
                     </p>
                   </div>
@@ -320,7 +389,7 @@ export function FlipbookStory({
 
                 {/* Cake Display */}
                 <div className="my-2 cursor-pointer group" onClick={(e) => { e.stopPropagation(); handleBlowOut(); }}>
-                  <div className="w-44 h-32 mx-auto relative flex flex-col items-center justify-end">
+                  <div className="cake-container w-44 h-32 mx-auto relative flex flex-col items-center justify-end">
                     {/* Candle on top */}
                     <div className="absolute top-0 flex flex-col items-center z-10" style={{ transform: 'translateY(-100%)' }}>
                       {!candlesBlown && (
@@ -460,7 +529,7 @@ export function FlipbookStory({
                   </h2>
                 </div>
 
-                <div className="flex justify-center my-2">
+                <div className="flex justify-center my-2 mascot-container">
                   <SpriteMascot action="dance" size={130} showSpeech={true} speechText="Keep dancing & celebrating!" />
                 </div>
 
@@ -472,30 +541,30 @@ export function FlipbookStory({
 
             {/* Back: Page 5 (Hard Back Cover) */}
             <div 
-              className="book-page-face-3d book-page-back-3d cursor-pointer bg-gradient-to-br from-amber-950 via-rose-950 to-slate-950 text-amber-100 text-center border-4 border-amber-500/40 p-1"
+              className="book-page-face-3d book-page-back-3d book-cover-page cursor-pointer text-center p-1"
               onClick={handlePrevPage}
             >
-              <div className="h-full flex flex-col items-center justify-between p-4 border-2 border-dashed border-amber-400/30 rounded-xl">
+              <div className="h-full flex flex-col items-center justify-between p-4 border-2 border-dashed border-purple-400/30 rounded-xl">
                 <div>
-                  <Sparkles className="w-8 h-8 text-amber-400 mx-auto mb-2" />
-                  <h2 className="font-serif text-2xl font-bold text-amber-200">
+                  <Sparkles className="w-8 h-8 text-purple-600 mx-auto mb-2" />
+                  <h2 className="font-serif text-2xl font-bold text-purple-900">
                     Happy Birthday!
                   </h2>
-                  <p className="text-xs text-amber-300/80 mt-1">
+                  <p className="text-xs text-purple-700/80 mt-1">
                     End of Storybook • {recipientName}'s Edition
                   </p>
                 </div>
 
-                <div className="p-3 bg-amber-900/60 rounded-xl border border-amber-600/40 w-full">
-                  <p className="text-xs font-bold text-amber-200">
+                <div className="p-3 bg-white/80 rounded-xl border border-purple-200 w-full">
+                  <p className="text-xs font-bold text-purple-800">
                     Created with WishThemHappy
                   </p>
-                  <p className="text-[10px] text-amber-400/70 mt-1">
+                  <p className="text-[10px] text-purple-600/70 mt-1">
                     Keep this memory book forever!
                   </p>
                 </div>
 
-                <div className="flex items-center justify-center gap-1 text-xs text-amber-300 font-handwriting">
+                <div className="flex items-center justify-center gap-1 text-xs text-purple-700 font-handwriting">
                   <span>With Love</span>
                   <Heart className="w-4 h-4 fill-rose-500 text-rose-500 inline" />
                 </div>
